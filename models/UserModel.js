@@ -45,7 +45,10 @@ const userDb = dbConfig.define(
     gender: {
       type: DataTypes.STRING,
     },
-    profile: {
+    profileName: {
+      type: DataTypes.STRING,
+    },
+    profileUrl: {
       type: DataTypes.STRING,
     },
   },

@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const dbConfig = require('../config/Database');
+const userDb = require('./UserModel');
 
 const businessDb = dbConfig.define(
   'business',
@@ -26,19 +27,43 @@ const businessDb = dbConfig.define(
     },
 
     schedule: {
-      type: DataTypes.ARRAY(DataTypes.TIME),
-      validate: {
-        // Validasi panjang array (minimal 2 waktu)
-        len: [2, 2],
+      type: DataTypes.TEXT,
+      // validate: { len: [2, 2] },
+      get() {
+        return JSON.parse(this.getDataValue('schedule'));
+      },
+      set(value) {
+        this.setDataValue('schedule', JSON.stringify(value));
       },
     },
 
     address: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.TEXT,
+      get() {
+        return JSON.parse(this.getDataValue('address'));
+      },
+      set(value) {
+        this.setDataValue('address', JSON.stringify(value));
+      },
     },
 
-    image: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    imageURL: {
+      type: DataTypes.TEXT,
+      get() {
+        return JSON.parse(this.getDataValue('imageURL'));
+      },
+      set(value) {
+        this.setDataValue('imageURL', JSON.stringify(value));
+      },
+    },
+    imageName: {
+      type: DataTypes.TEXT,
+      get() {
+        return JSON.parse(this.getDataValue('imageName'));
+      },
+      set(value) {
+        this.setDataValue('imageName', JSON.stringify(value));
+      },
     },
     subscription: {
       type: DataTypes.STRING,
@@ -46,3 +71,8 @@ const businessDb = dbConfig.define(
   },
   { freezeTableName: true }
 );
+
+userDb.hasMany(businessDb);
+businessDb.belongsTo(userDb, { foreignKey: 'userId', as: 'userData' });
+
+module.exports = businessDb;

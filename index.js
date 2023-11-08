@@ -7,6 +7,8 @@ const dbConfig = require('./config/Database.js');
 // komen
 const SequelizeStore = require('connect-session-sequelize');
 const authRouter = require('./routes/AuthRoute.js');
+const userRouter = require('./routes/UserRoute.js');
+const businessRouter = require('./routes/BusinessRoute.js');
 const app = express();
 dotenv.config();
 
@@ -40,9 +42,14 @@ app.use(
   })
 );
 
+//static file untuk image
+app.use(express.static('assets'));
+
 app.use(express.json());
 //route
 app.use(authRouter);
+app.use(userRouter);
+app.use(businessRouter);
 
 app.listen(process.env.APP_PORT, () => {
   console.log(`server sudah jalan tuan... ${process.env.APP_PORT}`);
