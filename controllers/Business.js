@@ -43,6 +43,11 @@ const createBusiness = (req, res) => {
       kabupaten,
       kecamatan,
       kelurahan,
+      facebook,
+      instagram,
+      twitter,
+      youtube,
+      // socialMedia,
     } = req.body;
 
     try {
@@ -61,6 +66,13 @@ const createBusiness = (req, res) => {
       const schedule = [openingHour, closingHour];
       const imageName = [img1Name, img2Name, img3Name];
       const imageURL = [img1URL, img2URL, img3URL];
+      const socialMedia = [facebook, instagram, twitter, youtube];
+      // const socialMediaArray = [
+      //   socialMedia[0],
+      //   socialMedia[1],
+      //   socialMedia[2],
+      //   socialMedia[3],
+      // ];
 
       await businessDb.create({
         name: name,
@@ -69,6 +81,7 @@ const createBusiness = (req, res) => {
         schedule: schedule,
         imageName: imageName,
         imageURL: imageURL,
+        socialMedia: socialMedia,
 
         //note fixxxxxxx middleware ntar
         userId: 1,
@@ -85,4 +98,28 @@ const createBusiness = (req, res) => {
   });
 };
 
-module.exports = { createBusiness };
+const getBusiness = async (req, res) => {
+  try {
+    const findAllBusiness = await businessDb.findAll();
+
+    res.status(200).json(findAllBusiness);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const getBusinessById = async (req, res) => {
+  try {
+    const findBuseiness = await businessDb.findOne({
+      where: { uuid: req.params.uuid },
+    });
+
+    res.status(200).json(findBuseiness);
+  } catch (error) {
+    res.status(500).json({
+      msg: error.message,
+    });
+  }
+};
+
+module.exports = { createBusiness, getBusiness, getBusinessById };

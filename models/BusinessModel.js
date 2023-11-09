@@ -65,6 +65,15 @@ const businessDb = dbConfig.define(
         this.setDataValue('imageName', JSON.stringify(value));
       },
     },
+    socialMedia: {
+      type: DataTypes.TEXT,
+      get() {
+        return JSON.parse(this.getDataValue('socialMedia'));
+      },
+      set(value) {
+        this.setDataValue('socialMedia', JSON.stringify(value));
+      },
+    },
     subscription: {
       type: DataTypes.STRING,
     },

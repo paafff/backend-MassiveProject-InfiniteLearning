@@ -33,7 +33,7 @@ const userDb = dbConfig.define(
         len: [3, 25],
       },
     },
-    card: {
+    cardId: {
       type: DataTypes.STRING,
     },
     address: {
