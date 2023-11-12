@@ -48,7 +48,7 @@ const userDb = dbConfig.define(
     profileName: {
       type: DataTypes.STRING,
     },
-    profileUrl: {
+    profileURL: {
       type: DataTypes.STRING,
     },
   },

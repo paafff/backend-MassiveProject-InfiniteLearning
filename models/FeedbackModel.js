@@ -3,28 +3,32 @@ const dbConfig = require('./../config/Database.js');
 const userDb = require('./UserModel.js');
 const businessDb = require('./BusinessModel.js');
 
-const feedbackDb = dbConfig.define('feedback', {
-  uuid: {
-    type: DataTypes.STRING,
-    defaultValue: DataTypes.UUIDV4,
-    unique: true,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-  },
+const feedbackDb = dbConfig.define(
+  'feedback',
+  {
+    uuid: {
+      type: DataTypes.STRING,
+      defaultValue: DataTypes.UUIDV4,
+      unique: true,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
 
-  rating: {
-    type: DataTypes.INTEGER,
-  },
+    rating: {
+      type: DataTypes.INTEGER,
+    },
 
-  userId: {
-    type: DataTypes.INTEGER,
+    userId: {
+      type: DataTypes.INTEGER,
+    },
+    businessId: {
+      type: DataTypes.INTEGER,
+    },
   },
-  businessId: {
-    type: DataTypes.INTEGER,
-  },
-});
+  { freezeTableName: true }
+);
 
 userDb.hasMany(feedbackDb);
 businessDb.hasMany(feedbackDb);

@@ -42,6 +42,7 @@ const createBusiness = (req, res) => {
       name,
       openingHour,
       closingHour,
+      provinsi,
       kabupaten,
       kecamatan,
       kelurahan,
@@ -64,7 +65,7 @@ const createBusiness = (req, res) => {
       const img3URL = `http://localhost:5000/business/${img3Name}`;
 
       //set array
-      const address = [kabupaten, kecamatan, kelurahan];
+      const address = [provinsi, kabupaten, kecamatan, kelurahan];
       const schedule = [openingHour, closingHour];
       const imageName = [img1Name, img2Name, img3Name];
       const imageURL = [img1URL, img2URL, img3URL];

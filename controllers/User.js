@@ -33,7 +33,7 @@ const getUsers = async (req, res) => {
         'gender',
         'role',
         'profileName',
-        'profileUrl',
+        'profileURL',
       ],
     });
     res.status(200).json(response);
@@ -56,7 +56,7 @@ const getUser = async (req, res) => {
         'gender',
         'role',
         'profileName',
-        'profileUrl',
+        'profileURL',
       ],
     });
 
@@ -90,7 +90,7 @@ const updateUser = async (req, res) => {
         ? req.files['photoProfile'][0].filename
         : findUser.profile;
 
-      const photoProfileUrl = `http://localhost:5000/profiles/${photoProfileName}`;
+      const photoProfileURL = `http://localhost:5000/profiles/${photoProfileName}`;
 
       const { username, email, phone, card, address, gender, role } = req.body;
 
@@ -107,7 +107,7 @@ const updateUser = async (req, res) => {
         gender: gender || findUser.gender,
         role: role || findUser.role,
         profileName: photoProfileName,
-        profileUrl: photoProfileUrl,
+        profileURL: photoProfileURL,
       };
 
       await userDb.update(updateData, { where: { uuid: req.params.uuid } });
