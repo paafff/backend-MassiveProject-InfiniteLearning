@@ -13,3 +13,5 @@ serviceDb.belongsTo(businessDb, {
   foreignKey: 'businessId',
   as: 'businessData',
 });
+
+module.exports = serviceDb;
