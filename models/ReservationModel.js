@@ -6,6 +6,12 @@ const businessDb = require('./BusinessModel');
 //catatan nang, bisa dipake buat notif
 
 const reservationDb = dbConfig.define('reservations', {
+  uuid: {
+    type: DataTypes.STRING,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+    unique: true,
+  },
   name: { type: DataTypes.STRING },
   workerSelected: { type: DataTypes.STRING },
   Description: { type: DataTypes.TEXT },

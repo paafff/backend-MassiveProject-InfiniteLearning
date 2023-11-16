@@ -33,7 +33,10 @@ const feedbackDb = dbConfig.define(
 userDb.hasMany(feedbackDb);
 businessDb.hasMany(feedbackDb);
 
-feedbackDb(userDb, { foreignKey: 'userId', as: 'userData' });
-feedbackDb(businessDb, { foreignKey: 'businessId', as: 'businessData' });
+feedbackDb.belongsTo(userDb, { foreignKey: 'userId', as: 'userData' });
+feedbackDb.belongsTo(businessDb, {
+  foreignKey: 'businessId',
+  as: 'businessData',
+});
 
 module.exports = feedbackDb;

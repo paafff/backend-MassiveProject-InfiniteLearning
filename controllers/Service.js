@@ -2,13 +2,18 @@ const businessDb = require('../models/BusinessModel');
 const serviceDb = require('../models/ServiceModel');
 
 const createService = async (req, res) => {
-  const { name, price, businessId } = req.body;
-
   try {
+    const { name, price, businessId } = req.body;
+
+    // Pengecekan apakah price adalah string atau bukan
+    const priceArray = typeof price === 'string' ? price.split(',') : price;
+
+    console.log(priceArray);
+
     await serviceDb.create({
       name: name,
-      price: price,
-      businessId: businessId,
+      price: priceArray,
+      businessId: 1,
     });
 
     res.status(200).json({ msg: 'berhasil menambahkan layanan' });
@@ -16,6 +21,32 @@ const createService = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
+// const businessDb = require('../models/BusinessModel');
+// const serviceDb = require('../models/ServiceModel');
+
+// const createService = async (req, res) => {
+//   const { name, price, businessId } = req.body;
+
+//   try {
+//     if (!price) {
+//       throw new Error('Field "price" is required.');
+//     }
+
+//     const priceArray = price.split(',');
+//     console.log(priceArray);
+
+//     await serviceDb.create({
+//       name: name,
+//       price: priceArray,
+//       businessId: 1,
+//     });
+
+//     res.status(200).json({ msg: 'berhasil menambahkan layanan' });
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
 
 //update => delete trus create
 const updateService = async (req, res) => {
@@ -40,10 +71,18 @@ const updateService = async (req, res) => {
   }
 };
 
-businessDb.hasOne(serviceDb);
-serviceDb.belongsTo(businessDb, {
-  foreignKey: 'businessId',
-  as: 'businessData',
-});
+const getServices = async (req, res) => {
+  try {
+    //temporary
+    const tempBusinessId = 1;
+    const response = await serviceDb.findAll({
+      where: { businessId: tempBusinessId },
+    });
 
-module.exports = { createService, updateService };
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+module.exports = { createService, updateService, getServices };

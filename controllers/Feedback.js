@@ -41,7 +41,7 @@ const deleteFeedback = async (req, res) => {
 const getFeedbackByBusinessId = async (req, res) => {
   try {
     const findFeedback = await feedbackDb.findAll({
-      where: { businessId: req.params.id },
+      where: { businessId: req.params.businessId },
       include: [
         {
           model: businessDb,

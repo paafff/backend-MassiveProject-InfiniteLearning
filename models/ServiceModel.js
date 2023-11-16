@@ -1,12 +1,32 @@
-const { DataTypes, INTEGER } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const dbConfig = require('../config/Database');
 const businessDb = require('./BusinessModel');
 
-const serviceDb = dbConfig.define('services', {
-  name: { type: DataTypes.STRING },
-  price: { type: DataTypes.INTEGER },
-  businessId: { type: INTEGER },
-});
+const serviceDb = dbConfig.define(
+  'services',
+  {
+    name: {
+      type: DataTypes.TEXT,
+      get() {
+        return JSON.parse(this.getDataValue('name'));
+      },
+      set(value) {
+        this.setDataValue('name', JSON.stringify(value));
+      },
+    },
+    price: {
+      type: DataTypes.TEXT,
+      get() {
+        return JSON.parse(this.getDataValue('price'));
+      },
+      set(value) {
+        this.setDataValue('price', JSON.stringify(value));
+      },
+    },
+    businessId: { type: DataTypes.INTEGER },
+  },
+  { freezeTableName: true }
+);
 
 businessDb.hasMany(serviceDb);
 serviceDb.belongsTo(businessDb, {

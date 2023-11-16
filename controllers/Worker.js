@@ -58,7 +58,7 @@ const deleteWorker = async (req, res) => {
 
     fs.unlinkSync(`./assets/workerProfiles/${findWorker.imageName}`);
 
-    await workerDb.findOne({ where: { uuid: req.params.uuid } });
+    await workerDb.destroy({ where: { uuid: req.params.uuid } });
 
     res.status(200).json('data pekerja berhasil dihapus');
   } catch (error) {
@@ -66,4 +66,16 @@ const deleteWorker = async (req, res) => {
   }
 };
 
-module.exports = { deleteWorker, createWorker };
+const getWorkers = async (req, res) => {
+  try {
+    const response = await workerDb.findAll({
+      where: { businessId: req.params.businessId },
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+module.exports = { deleteWorker, createWorker, getWorkers };

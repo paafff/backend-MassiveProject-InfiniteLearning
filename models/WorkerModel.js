@@ -22,7 +22,7 @@ const workerDb = dbConfig.define(
       type: DataTypes.STRING,
     },
     imageName: { type: DataTypes.STRING },
-    imageUrl: { type: DataTypes.STRING },
+    imageURL: { type: DataTypes.STRING },
     businessId: { type: DataTypes.INTEGER },
   },
   { freezeTableName: true }
