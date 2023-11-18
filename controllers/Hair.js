@@ -52,6 +52,10 @@ const deleteHair = async (req, res) => {
       where: { id: req.params.hairId },
     });
 
+    if (!findHair) {
+      return res.status(404).json({ mag: 'model rambut tidak ditemukan' });
+    }
+
     fs.unlinkSync(`./assets/hairModels/${findHair.imageName}`);
 
     await hairDb.destroy({ where: { id: req.params.hairId } });

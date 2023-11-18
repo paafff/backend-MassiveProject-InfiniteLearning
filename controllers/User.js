@@ -92,22 +92,31 @@ const updateUser = async (req, res) => {
 
       const photoProfileURL = `http://localhost:5000/profiles/${photoProfileName}`;
 
-      const { username, email, phone, card, address, gender, role } = req.body;
+      const { username, email, cardId, address, gender } = req.body;
+
+      let { role, phone } = req.body;
 
       // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-      // note bikin logic ubah role ketika udah ngisi phone & card
-      // if role guest, if phone !null, if card !null
+      // note bikin logic ubah role ketika udah ngisi phone & cardId
+      // if role guest, if phone !null, if cardId !null
+      if (!phone) {
+        phone === findUser.phone;
+      }
+
+      if (findUser.role === 'guest' && phone !== null) {
+        role = 'user';
+      }
 
       const updateData = {
         username: username || findUser.username,
         email: email || findUser.email,
-        card: card || findUser.card,
+        cardId: cardId || findUser.cardId,
         address: address || findUser.address,
         phone: phone || findUser.phone,
         gender: gender || findUser.gender,
-        role: role || findUser.role,
         profileName: photoProfileName,
         profileURL: photoProfileURL,
+        role: role,
       };
 
       await userDb.update(updateData, { where: { uuid: req.params.uuid } });

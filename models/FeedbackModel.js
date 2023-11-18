@@ -19,6 +19,8 @@ const feedbackDb = dbConfig.define(
     rating: {
       type: DataTypes.INTEGER,
     },
+    imageName: { type: DataTypes.STRING },
+    imageURL: { type: DataTypes.STRING },
 
     userId: {
       type: DataTypes.INTEGER,

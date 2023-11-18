@@ -1,23 +1,55 @@
 const fs = require('fs');
+const multer = require('multer');
 const feedbackDb = require('../models/FeedbackModel');
 const businessDb = require('../models/BusinessModel');
 const userDb = require('../models/UserModel');
 
+const storageSettings = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Menentukan folder penyimpanan
+    cb(null, 'assets/hairModels');
+  },
+  filename: (req, file, cb) => {
+    // Menentukan nama file dengan menambahkan timestamp ke nama asli
+    const timestamp = Date.now();
+    const newFilename = `${timestamp}.png`; // Ubah ekstensi menjadi .png jika diperlukan
+    cb(null, newFilename);
+  },
+});
+
+const uploadFile = multer({ storage: storageSettings }).fields([
+  { name: 'feedbackPhoto', maxCount: 1 },
+]);
+
 const createFeedback = async (req, res) => {
-  const { description, rating, userId, businessId } = req.body;
+  uploadFile(req, res, async (error) => {
+    if (error) {
+      return res
+        .status(500)
+        .json({ msg: 'terjadi kesalahan dalam unggahan file' });
+    }
 
-  try {
-    await feedbackDb.create({
-      description: description,
-      rating: rating,
-      userId: userId,
-      businessId: businessId,
-    });
+    const { description, rating, userId, businessId } = req.body;
 
-    res.status(200).json({ msg: 'berhasil menambahkan feedback' });
-  } catch (error) {
-    res.status(400).json({ msg: error.message });
-  }
+    try {
+      const feedbackPhotoName = req.files['feedbackPhoto'][0].filename;
+
+      const feedbackPhotoURL = `http://localhost:5000/feedbackPhotos/${feedbackPhotoName}`;
+
+      await feedbackDb.create({
+        description: description,
+        rating: rating,
+        imageName: feedbackPhotoName,
+        imageURL: feedbackPhotoURL,
+        userId: userId,
+        businessId: businessId,
+      });
+
+      res.status(200).json({ msg: 'berhasil menambahkan feedback' });
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+  });
 };
 
 const deleteFeedback = async (req, res) => {
@@ -30,9 +62,13 @@ const deleteFeedback = async (req, res) => {
       return res.status(404).json({ msg: 'feedback tidak ditemukan' });
     }
 
+    fs.unlinkSync(`./assets/feedbackPhotos/${findFeedback.imageName}`);
+
     await feedbackDb.destroy({
       where: { uuid: req.params.uuid },
     });
+
+    res.status(200).json('data feedback berhasil dihapus');
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
