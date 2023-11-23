@@ -37,8 +37,15 @@ const userDb = dbConfig.define(
       type: DataTypes.STRING,
     },
     address: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      get() {
+        return JSON.parse(this.getDataValue('address'));
+      },
+      set(value) {
+        this.setDataValue('address', JSON.stringify(value));
+      },
     },
+
     phone: {
       type: DataTypes.STRING,
     },
@@ -47,9 +54,11 @@ const userDb = dbConfig.define(
     },
     profileName: {
       type: DataTypes.STRING,
+      defaultValue: 'unsetProfile.png',
     },
     profileURL: {
       type: DataTypes.STRING,
+      defaultValue: 'http://localhost:5000/profiles/unsetProfile.png',
     },
   },
   { freezeTableName: true }

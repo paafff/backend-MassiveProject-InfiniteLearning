@@ -23,9 +23,6 @@
 
 // module.exports = businessRouter;
 
-
-
-
 const express = require('express');
 const {
   createBusiness,
@@ -36,11 +33,18 @@ const {
   getBarbeshopBusiness,
   getSalonBusiness,
   getSubscriptionBusiness,
+  getBusinessByOwnerId,
 } = require('../controllers/Business');
+const { verifyAuth, verifyAdminSuperuser } = require('../middleware/Verify');
 
 const businessRouter = express.Router();
 
-businessRouter.post('/business', createBusiness);
+businessRouter.post(
+  '/business',
+  verifyAuth,
+  verifyAdminSuperuser,
+  createBusiness
+);
 businessRouter.get('/business', getBusiness);
 businessRouter.get('/business/:uuid', getBusinessById);
 businessRouter.patch('/business/:uuid', updateBusiness);
@@ -48,5 +52,6 @@ businessRouter.delete('/business/:uuid', deleteBusiness);
 businessRouter.get('/barbershop', getBarbeshopBusiness);
 businessRouter.get('/salon', getSalonBusiness);
 businessRouter.get('/subscription', getSubscriptionBusiness);
+businessRouter.get('/my-business', verifyAuth, getBusinessByOwnerId);
 
 module.exports = businessRouter;

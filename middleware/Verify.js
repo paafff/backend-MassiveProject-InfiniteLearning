@@ -28,9 +28,11 @@ const verifyAdminSuperuser = async (req, res, next) => {
     return res.status(404).json({ msg: 'user tidak ditemukan' });
   }
 
-  if (findUser.role !== 'admin' || 'superuser') {
+  if (findUser.role !== 'admin' && findUser.role !== 'superuser') {
     return res.status(403).json({ msg: 'akses terlarang' });
   }
+
+  next();
 };
 
 module.exports = { verifyAuth, verifyAdminSuperuser };

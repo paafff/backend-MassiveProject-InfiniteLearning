@@ -2,6 +2,24 @@ const { DataTypes } = require('sequelize');
 const dbConfig = require('../config/Database');
 const userDb = require('./UserModel');
 
+const defaultImageURL = [
+  'http://localhost:5000/business/unsetImageBusiness.png',
+  'http://localhost:5000/business/unsetImageBusiness.png',
+  'http://localhost:5000/business/unsetImageBusiness.png',
+  'http://localhost:5000/business/unsetImageBusiness.png',
+  'http://localhost:5000/business/unsetImageBusiness.png',
+];
+
+const defaultImageName = [
+  'unsetImageBusiness.png',
+  'unsetImageBusiness.png',
+  'unsetImageBusiness.png',
+  'unsetImageBusiness.png',
+  'unsetImageBusiness.png',
+];
+
+const tempArray = ['', '', '', '', ''];
+
 const businessDb = dbConfig.define(
   'business',
   {
@@ -17,17 +35,29 @@ const businessDb = dbConfig.define(
 
     typeBusiness: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
 
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: { len: [3 - 100] },
+    },
+
+    email: {
+      type: DataTypes.STRING,
+      // allowNull: true,
+      // unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+
+    phone: {
+      type: DataTypes.STRING,
     },
 
     schedule: {
       type: DataTypes.TEXT,
+      defaultValue: JSON.stringify(tempArray),
       // validate: { len: [2, 2] },
       get() {
         return JSON.parse(this.getDataValue('schedule'));
@@ -39,6 +69,7 @@ const businessDb = dbConfig.define(
 
     address: {
       type: DataTypes.TEXT,
+      defaultValue: JSON.stringify(tempArray),
       get() {
         return JSON.parse(this.getDataValue('address'));
       },
@@ -47,8 +78,21 @@ const businessDb = dbConfig.define(
       },
     },
 
+    addressId: {
+      type: DataTypes.TEXT,
+      defaultValue: JSON.stringify(tempArray),
+      get() {
+        return JSON.parse(this.getDataValue('addressId'));
+      },
+      set(value) {
+        this.setDataValue('addressId', JSON.stringify(value));
+      },
+    },
+
     imageURL: {
       type: DataTypes.TEXT,
+
+      defaultValue: JSON.stringify(defaultImageURL),
       get() {
         return JSON.parse(this.getDataValue('imageURL'));
       },
@@ -56,8 +100,11 @@ const businessDb = dbConfig.define(
         this.setDataValue('imageURL', JSON.stringify(value));
       },
     },
+
     imageName: {
       type: DataTypes.TEXT,
+
+      defaultValue: JSON.stringify(defaultImageName),
       get() {
         return JSON.parse(this.getDataValue('imageName'));
       },
@@ -65,8 +112,12 @@ const businessDb = dbConfig.define(
         this.setDataValue('imageName', JSON.stringify(value));
       },
     },
+
     socialMedia: {
       type: DataTypes.TEXT,
+
+      defaultValue: JSON.stringify(tempArray),
+
       get() {
         return JSON.parse(this.getDataValue('socialMedia'));
       },

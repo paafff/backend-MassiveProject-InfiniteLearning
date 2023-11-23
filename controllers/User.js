@@ -82,19 +82,29 @@ const updateUser = async (req, res) => {
     }
 
     try {
-      if (req.files['photoProfile'] && findUser.profileName != null) {
+      ///dibaca nang, opsi 1
+      // if (req.files['photoProfile'] && findUser.profileName != null) {
+      //   fs.unlinkSync(`./assets/profiles/${findUser.profileName}`);
+      // }
+
+      // 1700640285358.png
+
+      //baca lagi nang opsi 2
+      if (findUser.profileName != 'unsetProfile.png') {
         fs.unlinkSync(`./assets/profiles/${findUser.profileName}`);
       }
 
       const photoProfileName = req.files[`photoProfile`]
         ? req.files['photoProfile'][0].filename
-        : findUser.profile;
+        : findUser.profileName;
 
       const photoProfileURL = `http://localhost:5000/profiles/${photoProfileName}`;
 
       const { username, email, cardId, address, gender } = req.body;
 
       let { role, phone } = req.body;
+
+      // const arrayAddress = [prov,]
 
       // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
       // note bikin logic ubah role ketika udah ngisi phone & cardId
@@ -107,11 +117,16 @@ const updateUser = async (req, res) => {
         role = 'user';
       }
 
+      // perubahan
+      // intinya dari client objek -> string, masuk server string -> object, masuk database object -> string
+
+      const addressParse = address ? JSON.parse(address) : undefined;
+
       const updateData = {
         username: username || findUser.username,
         email: email || findUser.email,
         cardId: cardId || findUser.cardId,
-        address: address || findUser.address,
+        address: addressParse || findUser.address,
         phone: phone || findUser.phone,
         gender: gender || findUser.gender,
         profileName: photoProfileName,
@@ -120,6 +135,8 @@ const updateUser = async (req, res) => {
       };
 
       await userDb.update(updateData, { where: { uuid: req.params.uuid } });
+      console.log(address);
+      console.log(addressParse);
       res.status(200).json({ msg: 'Data berhasil di update' });
     } catch (error) {
       res.status(400).json({ msg: error.message });

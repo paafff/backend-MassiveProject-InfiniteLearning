@@ -50,7 +50,8 @@ const Login = async (req, res) => {
 
   res
     .status(200)
-    .json({ msg: `login sukses ${req.session.temporarySessionUUID}` });
+    // .json({ msg: `login sukses ${req.session.temporarySessionUUID}` });
+    .json(findUser);
 };
 
 const getMe = async (req, res) => {
@@ -60,16 +61,6 @@ const getMe = async (req, res) => {
 
   const findUser = await userDb.findOne({
     where: { uuid: req.session.temporarySessionUUID },
-    attributes: [
-      'role',
-      'uuid',
-      'email',
-      'username',
-      'address',
-      'phone',
-      'gender',
-      'profile',
-    ],
   });
 
   res.status(200).json(findUser);
