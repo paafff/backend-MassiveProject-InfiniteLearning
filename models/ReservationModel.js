@@ -14,7 +14,7 @@ const reservationDb = dbConfig.define('reservations', {
   },
   name: { type: DataTypes.STRING },
   workerSelected: { type: DataTypes.STRING },
-  Description: { type: DataTypes.TEXT },
+  description: { type: DataTypes.TEXT },
   time: { type: DataTypes.STRING },
   userId: { type: DataTypes.INTEGER },
   businessId: { type: DataTypes.INTEGER },

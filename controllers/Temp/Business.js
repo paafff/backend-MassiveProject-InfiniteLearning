@@ -289,6 +289,12 @@ const updateBusiness = async (req, res) => {
       if (findBusiness.imageName[2] != 'unsetImageBusiness.png') {
         fs.unlinkSync(`./assets/business/${findBusiness.imageName[2]}`);
       }
+      if (findBusiness.imageName[3] != 'unsetImageBusiness.png') {
+        fs.unlinkSync(`./assets/business/${findBusiness.imageName[4]}`);
+      }
+      if (findBusiness.imageName[4] != 'unsetImageBusiness.png') {
+        fs.unlinkSync(`./assets/business/${findBusiness.imageName[4]}`);
+      }
 
       name;
       const img1Name = req.files['img1']
@@ -300,16 +306,24 @@ const updateBusiness = async (req, res) => {
       const img3Name = req.files['img3']
         ? req.files['img3'][0].filename
         : findBusiness.imageName[2];
+      const img4Name = req.files['img4']
+        ? req.files['img4'][0].filename
+        : findBusiness.imageName[2];
+      const img5Name = req.files['img5']
+        ? req.files['img5'][0].filename
+        : findBusiness.imageName[2];
 
       //url
       const img1URL = `http://localhost:5000/business/${img1Name}`;
       const img2URL = `http://localhost:5000/business/${img2Name}`;
       const img3URL = `http://localhost:5000/business/${img3Name}`;
+      const img4URL = `http://localhost:5000/business/${img4Name}`;
+      const img5URL = `http://localhost:5000/business/${img5Name}`;
 
       //set array
 
-      const imageName = [img1Name, img2Name, img3Name];
-      const imageURL = [img1URL, img2URL, img3URL];
+      const imageName = [img1Name, img2Name, img3Name, img4Name, img5Name];
+      const imageURL = [img1URL, img2URL, img3URL, img4URL, img5URL];
 
       const addressParse = address ? JSON.parse(address) : undefined;
       const socialMediaParse = socialMedia

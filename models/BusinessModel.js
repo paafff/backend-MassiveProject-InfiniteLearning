@@ -18,7 +18,7 @@ const defaultImageName = [
   'unsetImageBusiness.png',
 ];
 
-const tempArray = ['', '', '', '', ''];
+const tempArray = ['zero', 'zero', 'zero', 'zero', 'zero'];
 
 const businessDb = dbConfig.define(
   'business',
@@ -54,6 +54,8 @@ const businessDb = dbConfig.define(
     phone: {
       type: DataTypes.STRING,
     },
+
+    description: { type: DataTypes.TEXT },
 
     schedule: {
       type: DataTypes.TEXT,

@@ -1,9 +1,18 @@
+const { response } = require('express');
 const businessDb = require('../models/BusinessModel');
 const serviceDb = require('../models/ServiceModel');
 
 const createService = async (req, res) => {
   try {
     const { name, price, businessId } = req.body;
+
+    const findService = await serviceDb.findOne({
+      where: { businessId: businessId },
+    });
+
+    if (findService) {
+      await findService.destroy({ where: { businessId: businessId } });
+    }
 
     // Pengecekan apakah price adalah string atau bukan
     const priceArray = typeof price === 'string' ? price.split(',') : price;
@@ -13,7 +22,7 @@ const createService = async (req, res) => {
     await serviceDb.create({
       name: name,
       price: priceArray,
-      businessId: 1,
+      businessId: businessId,
     });
 
     res.status(200).json({ msg: 'berhasil menambahkan layanan' });
@@ -85,4 +94,20 @@ const getServices = async (req, res) => {
   }
 };
 
-module.exports = { createService, updateService, getServices };
+const getServiceById = async (req, res) => {
+  try {
+    const businessId = req.params.businessId;
+
+    const response = await serviceDb.findOne({
+      where: { businessId: businessId },
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+module.exports = { createService, updateService, getServices, getServiceById };
+
+

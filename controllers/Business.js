@@ -263,10 +263,11 @@ const updateBusiness = async (req, res) => {
       schedule,
       socialMedia,
       address,
+      addressId,
       phone,
       email,
-      // socialMedia,
       subscription,
+      description,
     } = req.body;
 
     try {
@@ -289,6 +290,12 @@ const updateBusiness = async (req, res) => {
       if (findBusiness.imageName[2] != 'unsetImageBusiness.png') {
         fs.unlinkSync(`./assets/business/${findBusiness.imageName[2]}`);
       }
+      if (findBusiness.imageName[3] != 'unsetImageBusiness.png') {
+        fs.unlinkSync(`./assets/business/${findBusiness.imageName[3]}`);
+      }
+      if (findBusiness.imageName[4] != 'unsetImageBusiness.png') {
+        fs.unlinkSync(`./assets/business/${findBusiness.imageName[4]}`);
+      }
 
       name;
       const img1Name = req.files['img1']
@@ -300,18 +307,27 @@ const updateBusiness = async (req, res) => {
       const img3Name = req.files['img3']
         ? req.files['img3'][0].filename
         : findBusiness.imageName[2];
+      const img4Name = req.files['img4']
+        ? req.files['img4'][0].filename
+        : findBusiness.imageName[3];
+      const img5Name = req.files['img5']
+        ? req.files['img5'][0].filename
+        : findBusiness.imageName[4];
 
       //url
       const img1URL = `http://localhost:5000/business/${img1Name}`;
       const img2URL = `http://localhost:5000/business/${img2Name}`;
       const img3URL = `http://localhost:5000/business/${img3Name}`;
+      const img4URL = `http://localhost:5000/business/${img4Name}`;
+      const img5URL = `http://localhost:5000/business/${img5Name}`;
 
       //set array
 
-      const imageName = [img1Name, img2Name, img3Name];
-      const imageURL = [img1URL, img2URL, img3URL];
+      const imageName = [img1Name, img2Name, img3Name, img4Name, img5Name];
+      const imageURL = [img1URL, img2URL, img3URL, img4URL, img5URL];
 
       const addressParse = address ? JSON.parse(address) : undefined;
+      const addressIdParse = addressId ? JSON.parse(addressId) : undefined;
       const socialMediaParse = socialMedia
         ? JSON.parse(socialMedia)
         : undefined;
@@ -322,9 +338,11 @@ const updateBusiness = async (req, res) => {
         typeBusiness: typeBusiness,
         phone: phone,
         email: email,
+        description: description,
         imageName: imageName,
         imageURL: imageURL,
         address: addressParse,
+        addressId: addressIdParse,
         schedule: scheduleParse,
         socialMedia: socialMediaParse,
       };
@@ -427,6 +445,8 @@ const deleteBusiness = async (req, res) => {
     fs.unlinkSync(`./assets/business/${findBusiness.imageName[0]}`);
     fs.unlinkSync(`./assets/business/${findBusiness.imageName[1]}`);
     fs.unlinkSync(`./assets/business/${findBusiness.imageName[2]}`);
+    fs.unlinkSync(`./assets/business/${findBusiness.imageName[3]}`);
+    fs.unlinkSync(`./assets/business/${findBusiness.imageName[4]}`);
 
     await businessDb.destroy({ where: { uuid: req.params.uuid } });
 

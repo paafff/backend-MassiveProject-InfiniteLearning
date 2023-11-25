@@ -34,11 +34,13 @@ const createWorker = async (req, res) => {
 
       const { name, skill, description, businessId } = req.body;
 
+      console.log(businessId);
+
       await workerDb.create({
         name: name,
         skill: skill,
         description: description,
-        businessId: businessId,
+        businessId: parseInt(businessId),
         imageName: photoWorkerName,
         imageURL: photoWorkerURL,
       });
