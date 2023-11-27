@@ -2,15 +2,17 @@ const businessDb = require('../models/BusinessModel');
 const reservationDb = require('../models/ReservationModel');
 
 const createReservation = async (req, res) => {
-  const { name, workerSelected, Description, time, businessId } = req.body;
+  const { name, workerSelected, description, time, day, businessId } = req.body;
 
   try {
     await reservationDb.create({
       name: name,
       workerSelected: workerSelected,
-      Description: Description,
+      description: description,
       time: time,
+      day: day,
       businessId: businessId,
+      userId: req.userId,
     });
 
     res.status(200).json({ msg: 'berhasil menambahkan reservasi' });

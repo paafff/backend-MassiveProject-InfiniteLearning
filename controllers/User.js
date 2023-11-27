@@ -82,6 +82,8 @@ const updateUser = async (req, res) => {
     }
 
     try {
+      //JANGAN LUPA BIKIN FUNC LAGI< BUAT HANDLE IMAGE KETIKA USER INPUT KOSONG
+
       ///dibaca nang, opsi 1
       // if (req.files['photoProfile'] && findUser.profileName != null) {
       //   fs.unlinkSync(`./assets/profiles/${findUser.profileName}`);
@@ -90,7 +92,10 @@ const updateUser = async (req, res) => {
       // 1700640285358.png
 
       //baca lagi nang opsi 2
-      if (findUser.profileName != 'unsetProfile.png') {
+      if (
+        req.files['photoProfile'] &&
+        findUser.profileName != 'unsetProfile.png'
+      ) {
         fs.unlinkSync(`./assets/profiles/${findUser.profileName}`);
       }
 

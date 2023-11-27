@@ -7,7 +7,7 @@ const userDb = require('../models/UserModel');
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {
     // Menentukan folder penyimpanan
-    cb(null, 'assets/hairModels');
+    cb(null, 'assets/feedbackPhotos');
   },
   filename: (req, file, cb) => {
     // Menentukan nama file dengan menambahkan timestamp ke nama asli
@@ -29,7 +29,7 @@ const createFeedback = async (req, res) => {
         .json({ msg: 'terjadi kesalahan dalam unggahan file' });
     }
 
-    const { description, rating, userId, businessId } = req.body;
+    const { description, rating, businessId } = req.body;
 
     try {
       const feedbackPhotoName = req.files['feedbackPhoto'][0].filename;
@@ -41,7 +41,7 @@ const createFeedback = async (req, res) => {
         rating: rating,
         imageName: feedbackPhotoName,
         imageURL: feedbackPhotoURL,
-        userId: userId,
+        userId: req.userId,
         businessId: businessId,
       });
 
