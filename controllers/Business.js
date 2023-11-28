@@ -281,19 +281,34 @@ const updateBusiness = async (req, res) => {
       //   fs.unlinkSync(`./assets/business/${findBusiness.imageName[2]}`);
       // }
 
-      if (findBusiness.imageName[0] != 'unsetImageBusiness.png') {
+      if (
+        req.files['img1'] &&
+        findBusiness.imageName[0] != 'unsetImageBusiness.png'
+      ) {
         fs.unlinkSync(`./assets/business/${findBusiness.imageName[0]}`);
       }
-      if (findBusiness.imageName[1] != 'unsetImageBusiness.png') {
+      if (
+        req.files['img2'] &&
+        findBusiness.imageName[1] != 'unsetImageBusiness.png'
+      ) {
         fs.unlinkSync(`./assets/business/${findBusiness.imageName[1]}`);
       }
-      if (findBusiness.imageName[2] != 'unsetImageBusiness.png') {
+      if (
+        req.files['img3'] &&
+        findBusiness.imageName[2] != 'unsetImageBusiness.png'
+      ) {
         fs.unlinkSync(`./assets/business/${findBusiness.imageName[2]}`);
       }
-      if (findBusiness.imageName[3] != 'unsetImageBusiness.png') {
+      if (
+        req.files['img4'] &&
+        findBusiness.imageName[3] != 'unsetImageBusiness.png'
+      ) {
         fs.unlinkSync(`./assets/business/${findBusiness.imageName[3]}`);
       }
-      if (findBusiness.imageName[4] != 'unsetImageBusiness.png') {
+      if (
+        req.files['img5'] &&
+        findBusiness.imageName[4] != 'unsetImageBusiness.png'
+      ) {
         fs.unlinkSync(`./assets/business/${findBusiness.imageName[4]}`);
       }
 
