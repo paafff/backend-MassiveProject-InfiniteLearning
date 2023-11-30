@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const dbConfig = require('../config/Database');
-const userDb = require('./UserModel');
-const businessDb = require('./BusinessModel');
+const dbConfig = require('../config/Database.js');
+const userDb = require('./UserModel.js');
+const businessDb = require('./BusinessModel.js');
 
 //catatan nang, bisa dipake buat notif
 

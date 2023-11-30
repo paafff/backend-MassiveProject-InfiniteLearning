@@ -1,5 +1,5 @@
 const { where } = require('sequelize');
-const listServiceDb = require('../models/ListServiceModel');
+const listServiceDb = require('../models/ListServiceModel.js');
 
 const createListService = async (req, res) => {
   try {

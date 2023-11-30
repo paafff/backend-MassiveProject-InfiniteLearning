@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const dbConfig = require('../config/Database');
+const dbConfig = require('../config/Database.js');
 
 const hairDb = dbConfig.define(
   'hairs',

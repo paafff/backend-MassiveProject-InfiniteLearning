@@ -1,7 +1,7 @@
 const { error } = require('console');
 const fs = require('fs');
 const multer = require('multer');
-const hairDb = require('../models/HairModel');
+const hairDb = require('../models/HairModel.js');
 
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {

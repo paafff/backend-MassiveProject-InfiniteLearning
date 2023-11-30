@@ -1,8 +1,8 @@
 const fs = require('fs');
 const multer = require('multer');
-const feedbackDb = require('../models/FeedbackModel');
-const businessDb = require('../models/BusinessModel');
-const userDb = require('../models/UserModel');
+const feedbackDb = require('../models/FeedbackModel.js');
+const businessDb = require('../models/BusinessModel.js');
+const userDb = require('../models/UserModel.js');
 
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {

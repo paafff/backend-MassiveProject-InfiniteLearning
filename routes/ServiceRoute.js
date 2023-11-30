@@ -4,7 +4,7 @@ const {
   updateService,
   getServices,
   getServiceById,
-} = require('../controllers/Service');
+} = require('../controllers/Service.js');
 
 const serviceRouter = express.Router();
 

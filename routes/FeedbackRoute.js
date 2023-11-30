@@ -3,7 +3,7 @@ const {
   createFeedback,
   deleteFeedback,
   getFeedbackByBusinessId,
-} = require('../controllers/Feedback');
+} = require('../controllers/Feedback.js');
 
 const feedbackRouter = express.Router();
 

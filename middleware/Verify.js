@@ -1,4 +1,4 @@
-const userDb = require('../models/UserModel');
+const userDb = require('../models/UserModel.js');
 
 const verifyAuth = async (req, res, next) => {
   if (!req.session.temporarySessionUUID) {

@@ -1,10 +1,10 @@
 const multer = require('multer');
 const fs = require('fs');
 // const { error } = require('console');
-const businessDb = require('../models/BusinessModel');
+const businessDb = require('../models/BusinessModel.js');
 // const { where } = require('sequelize');
 const Sequelize = require('sequelize');
-const userDb = require('../models/UserModel');
+const userDb = require('../models/UserModel.js');
 
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -380,6 +380,35 @@ const getBusiness = async (req, res) => {
   }
 };
 
+// const getBusinessByParams = async (req, res) => {
+//   try {
+//     const params1 = req.params.params1;
+//     const findAllBusiness = await businessDb.findAll();
+
+//     res.status(200).json(findAllBusiness);
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
+const getBusinessByParams = async (req, res) => {
+  try {
+    const searchParams = req.params.searchParams;
+    const findAllBusiness = await businessDb.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { name: { [Sequelize.Op.like]: `%${searchParams}%` } },
+          { address: { [Sequelize.Op.like]: `%${searchParams}%` } },
+        ],
+      },
+    });
+
+    res.status(200).json(findAllBusiness);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 const getSubscriptionBusiness = async (req, res) => {
   try {
     const findSubscriptionBusiness = await businessDb.findAll({
@@ -483,4 +512,5 @@ module.exports = {
   getBarbeshopBusiness,
   getSubscriptionBusiness,
   getBusinessByOwnerId,
+  getBusinessByParams,
 };

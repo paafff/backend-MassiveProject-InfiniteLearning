@@ -1,5 +1,5 @@
-const businessDb = require('../models/BusinessModel');
-const reservationDb = require('../models/ReservationModel');
+const businessDb = require('../models/BusinessModel.js');
+const reservationDb = require('../models/ReservationModel.js');
 
 const createReservation = async (req, res) => {
   const { name, workerSelected, description, time, day, businessId } = req.body;

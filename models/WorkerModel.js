@@ -1,6 +1,6 @@
 const { DataTypes, UUIDV4 } = require('sequelize');
 const dbConfig = require('../config/Database.js');
-const businessDb = require('./BusinessModel');
+const businessDb = require('./BusinessModel.js');
 
 const workerDb = dbConfig.define(
   'workers',

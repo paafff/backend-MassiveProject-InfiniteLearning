@@ -2,8 +2,8 @@ const express = require('express');
 const {
   createReservation,
   updateReservation,
-} = require('../controllers/Reservation');
-const { verifyAuth } = require('../middleware/Verify');
+} = require('../controllers/Reservation.js');
+const { verifyAuth } = require('../middleware/Verify.js');
 
 const reservationRouter = express.Router();
 

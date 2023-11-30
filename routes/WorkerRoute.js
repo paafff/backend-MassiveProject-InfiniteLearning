@@ -3,7 +3,7 @@ const {
   createWorker,
   deleteWorker,
   getWorkers,
-} = require('../controllers/Worker');
+} = require('../controllers/Worker.js');
 
 const workerRouter = express.Router();
 

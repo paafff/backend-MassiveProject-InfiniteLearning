@@ -1,5 +1,5 @@
 const express = require('express');
-const { createHair, deleteHair, getHairs } = require('../controllers/Hair');
+const { createHair, deleteHair, getHairs } = require('../controllers/Hair.js');
 
 const hairRouter = express.Router();
 

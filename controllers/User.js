@@ -1,6 +1,6 @@
 const fs = require('fs');
 const multer = require('multer');
-const userDb = require('../models/UserModel');
+const userDb = require('../models/UserModel.js');
 const argon2 = require('argon2');
 
 const storageSettings = multer.diskStorage({
@@ -103,7 +103,8 @@ const updateUser = async (req, res) => {
         ? req.files['photoProfile'][0].filename
         : findUser.profileName;
 
-      const photoProfileURL = `http://localhost:5000/profiles/${photoProfileName}`;
+      // const photoProfileURL = `http://localhost:5000/profiles/${photoProfileName}`;
+      const photoProfileURL = `${process.env.APP_DOMAIN}/profiles/${photoProfileName}`;
 
       const { username, email, cardId, address, gender } = req.body;
 

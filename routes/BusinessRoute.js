@@ -34,8 +34,9 @@ const {
   getSalonBusiness,
   getSubscriptionBusiness,
   getBusinessByOwnerId,
-} = require('../controllers/Business');
-const { verifyAuth, verifyAdminSuperuser } = require('../middleware/Verify');
+  getBusinessByParams,
+} = require('../controllers/Business.js');
+const { verifyAuth, verifyAdminSuperuser } = require('../middleware/Verify.js');
 
 const businessRouter = express.Router();
 
@@ -53,5 +54,6 @@ businessRouter.get('/barbershop', getBarbeshopBusiness);
 businessRouter.get('/salon', getSalonBusiness);
 businessRouter.get('/subscription', getSubscriptionBusiness);
 businessRouter.get('/my-business', verifyAuth, getBusinessByOwnerId);
+businessRouter.get('/business-search/:searchParams', getBusinessByParams);
 
 module.exports = businessRouter;

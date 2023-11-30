@@ -1,6 +1,6 @@
 const fs = require('fs');
 const multer = require('multer');
-const workerDb = require('../models/WorkerModel');
+const workerDb = require('../models/WorkerModel.js');
 
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {

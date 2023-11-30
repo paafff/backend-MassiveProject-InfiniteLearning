@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
-const dbConfig = require('../config/Database');
-const userDb = require('./UserModel');
+const dbConfig = require('../config/Database.js');
+const userDb = require('./UserModel.js');
 
 const defaultImageURL = [
   'http://localhost:5000/business/unsetImageBusiness.png',
@@ -18,7 +18,14 @@ const defaultImageName = [
   'unsetImageBusiness.png',
 ];
 
-const tempArray = ['zero', 'zero', 'zero', 'zero', 'zero'];
+const tempArray = [
+  'undefined',
+  'undefined',
+  'undefined',
+  'undefined',
+  'undefined',
+];
+const tempArraySchedule = ['undefined', 'undefined'];
 
 const businessDb = dbConfig.define(
   'business',
@@ -59,7 +66,7 @@ const businessDb = dbConfig.define(
 
     schedule: {
       type: DataTypes.TEXT,
-      defaultValue: JSON.stringify(tempArray),
+      defaultValue: JSON.stringify(tempArraySchedule),
       // validate: { len: [2, 2] },
       get() {
         return JSON.parse(this.getDataValue('schedule'));

@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
-const dbConfig = require('../config/Database');
-const businessDb = require('./BusinessModel');
+const dbConfig = require('../config/Database.js');
+const businessDb = require('./BusinessModel.js');
 
 const scheduleDb = dbConfig.define(
   'services',

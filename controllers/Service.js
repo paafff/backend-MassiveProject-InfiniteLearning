@@ -1,6 +1,6 @@
 const { response } = require('express');
-const businessDb = require('../models/BusinessModel');
-const serviceDb = require('../models/ServiceModel');
+const businessDb = require('../models/BusinessModel.js');
+const serviceDb = require('../models/ServiceModel.js');
 
 const createService = async (req, res) => {
   try {
