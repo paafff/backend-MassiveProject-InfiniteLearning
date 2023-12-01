@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, TIME } = require('sequelize');
 const dbConfig = require('../config/Database.js');
 const userDb = require('./UserModel.js');
 
@@ -136,6 +136,9 @@ const businessDb = dbConfig.define(
     },
     subscription: {
       type: DataTypes.STRING,
+    },
+    subscriptionAt: {
+      type: DataTypes.DATE,
     },
   },
   { freezeTableName: true }

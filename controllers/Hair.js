@@ -31,7 +31,7 @@ const createHair = async (req, res) => {
     try {
       const hairModelName = req.files['hairModel'][0].filename;
 
-      const hairModelURL = `http://localhost:5000/profileModels/${hairModelName}`;
+      const hairModelURL = `${process.env.APP_DOMAIN}/profileModels/${hairModelName}`;
 
       await hairDb.create({
         name: req.body.name,

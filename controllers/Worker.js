@@ -30,7 +30,7 @@ const createWorker = async (req, res) => {
     try {
       const photoWorkerName = req.files['photoWorker'][0].filename;
 
-      const photoWorkerURL = `http://localhost:5000/profileWorkers/${photoWorkerName}`;
+      const photoWorkerURL = `${process.env.APP_DOMAIN}/profileWorkers/${photoWorkerName}`;
 
       const { name, skill, description, businessId } = req.body;
 

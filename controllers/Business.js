@@ -58,9 +58,9 @@ const uploadFile = multer({ storage: storageSettings }).fields([
 //       const img3Name = req.files['img3'][0].filename;
 
 //       //url
-//       const img1URL = `http://localhost:5000/business/${img1Name}`;
-//       const img2URL = `http://localhost:5000/business/${img2Name}`;
-//       const img3URL = `http://localhost:5000/business/${img3Name}`;
+//       const img1URL = `${process.env.APP_DOMAIN}/business/${img1Name}`;
+//       const img2URL = `${process.env.APP_DOMAIN}/business/${img2Name}`;
+//       const img3URL = `${process.env.APP_DOMAIN}/business/${img3Name}`;
 
 //       //set array
 
@@ -198,9 +198,9 @@ const createBusiness = async (req, res) => {
 //         : parseImgName[2];
 
 //       //url
-//       const img1URL = `http://localhost:5000/business/${img1Name}`;
-//       const img2URL = `http://localhost:5000/business/${img2Name}`;
-//       const img3URL = `http://localhost:5000/business/${img3Name}`;
+//       const img1URL = `${process.env.APP_DOMAIN}/business/${img1Name}`;
+//       const img2URL = `${process.env.APP_DOMAIN}/business/${img2Name}`;
+//       const img3URL = `${process.env.APP_DOMAIN}/business/${img3Name}`;
 
 //       //set array
 //       const address = [
@@ -330,11 +330,11 @@ const updateBusiness = async (req, res) => {
         : findBusiness.imageName[4];
 
       //url
-      const img1URL = `http://localhost:5000/business/${img1Name}`;
-      const img2URL = `http://localhost:5000/business/${img2Name}`;
-      const img3URL = `http://localhost:5000/business/${img3Name}`;
-      const img4URL = `http://localhost:5000/business/${img4Name}`;
-      const img5URL = `http://localhost:5000/business/${img5Name}`;
+      const img1URL = `${process.env.APP_DOMAIN}/business/${img1Name}`;
+      const img2URL = `${process.env.APP_DOMAIN}/business/${img2Name}`;
+      const img3URL = `${process.env.APP_DOMAIN}/business/${img3Name}`;
+      const img4URL = `${process.env.APP_DOMAIN}/business/${img4Name}`;
+      const img5URL = `${process.env.APP_DOMAIN}/business/${img5Name}`;
 
       //set array
 
@@ -404,6 +404,46 @@ const getBusinessByParams = async (req, res) => {
     });
 
     res.status(200).json(findAllBusiness);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const createSubscriptionBusiness = async (req, res) => {
+  try {
+    // const findBusiness = await businessDb.findOne({
+    //   where: { uuid: req.params.uuid },
+    // });
+
+    await businessDb.update(
+      {
+        subscription: 'Subscribe',
+        subscriptionAt: new Date(),
+      },
+      { where: { uuid: req.params.uuid } }
+    );
+
+    res.status(200).json({ msg: 'berhasil melakukan subscription' });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const deleteSubscriptionBusiness = async (req, res) => {
+  try {
+    // const findBusiness = await businessDb.findOne({
+    //   where: { uuid: req.params.uuid },
+    // });
+
+    await businessDb.update(
+      {
+        subscription: null,
+        subscriptionAt: null,
+      },
+      { where: { uuid: req.params.uuid } }
+    );
+
+    res.status(200).json({ msg: 'berhasil menghapus subscription' });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -513,4 +553,7 @@ module.exports = {
   getSubscriptionBusiness,
   getBusinessByOwnerId,
   getBusinessByParams,
+  createBusiness,
+  createSubscriptionBusiness,
+  deleteSubscriptionBusiness,
 };

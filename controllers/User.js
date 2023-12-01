@@ -23,18 +23,18 @@ const uploadFile = multer({ storage: storageSettings }).fields([
 const getUsers = async (req, res) => {
   try {
     const response = await userDb.findAll({
-      attributes: [
-        'uuid',
-        'username',
-        'email',
-        'phone',
-        'cardId',
-        'address',
-        'gender',
-        'role',
-        'profileName',
-        'profileURL',
-      ],
+      // attributes: [
+      //   'uuid',
+      //   'username',
+      //   'email',
+      //   'phone',
+      //   'cardId',
+      //   'address',
+      //   'gender',
+      //   'role',
+      //   'profileName',
+      //   'profileURL',
+      // ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -46,18 +46,18 @@ const getUser = async (req, res) => {
   try {
     const response = await userDb.findOne({
       where: { uuid: req.params.uuid },
-      attributes: [
-        'uuid',
-        'username',
-        'email',
-        'phone',
-        'cardId',
-        'address',
-        'gender',
-        'role',
-        'profileName',
-        'profileURL',
-      ],
+      // attributes: [
+      //   'uuid',
+      //   'username',
+      //   'email',
+      //   'phone',
+      //   'cardId',
+      //   'address',
+      //   'gender',
+      //   'role',
+      //   'profileName',
+      //   'profileURL',
+      // ],
     });
 
     res.status(200).json(response);

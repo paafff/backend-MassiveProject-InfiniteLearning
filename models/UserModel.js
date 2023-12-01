@@ -54,11 +54,11 @@ const userDb = dbConfig.define(
     },
     profileName: {
       type: DataTypes.STRING,
-      defaultValue: 'zero.png',
+      defaultValue: 'unsetProfile.png',
     },
     profileURL: {
       type: DataTypes.STRING,
-      defaultValue: `${process.env.APP_DOMAIN}/profiles/zero.png`,
+      defaultValue: `${process.env.APP_DOMAIN}/profiles/unsetProfile.png`,
     },
   },
   { freezeTableName: true }

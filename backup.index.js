@@ -1,8 +1,5 @@
-const dotenv = require('dotenv');
-dotenv.config();
-
 const express = require('express');
-
+const dotenv = require('dotenv');
 const cors = require('cors');
 const session = require('express-session');
 const dbConfig = require('./config/Database.js');
@@ -63,6 +60,7 @@ app.use(workerRouter);
 app.use(feedbackRouter);
 app.use(hairRouter);
 app.use(reservationRouter);
+
 
 app.listen(process.env.APP_PORT, () => {
   console.log(`server sudah jalan tuan... ${process.env.APP_PORT}`);

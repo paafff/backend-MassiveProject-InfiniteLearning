@@ -34,7 +34,7 @@ const createFeedback = async (req, res) => {
     try {
       const feedbackPhotoName = req.files['feedbackPhoto'][0].filename;
 
-      const feedbackPhotoURL = `http://localhost:5000/feedbackPhotos/${feedbackPhotoName}`;
+      const feedbackPhotoURL = `${process.env.APP_DOMAIN}/feedbackPhotos/${feedbackPhotoName}`;
 
       await feedbackDb.create({
         description: description,
