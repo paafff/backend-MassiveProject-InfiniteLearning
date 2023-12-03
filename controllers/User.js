@@ -191,7 +191,10 @@ const deleteUser = async (req, res) => {
       where: { uuid: req.params.uuid },
     });
 
-    if (findUser.profileName !== null) {
+    if (
+      findUser.profileName != 'unsetProfile.png' &&
+      findUser.profileName !== null
+    ) {
       fs.unlinkSync(`./assets/profiles/${findUser.profileName}`);
     }
     await userDb.destroy({
