@@ -31,7 +31,7 @@ const workerDb = dbConfig.define(
 businessDb.hasMany(workerDb);
 workerDb.belongsTo(businessDb, {
   foreignKey: 'businessId',
-  as: 'businessData',
+  as: 'workers',
 });
 
 module.exports = workerDb;

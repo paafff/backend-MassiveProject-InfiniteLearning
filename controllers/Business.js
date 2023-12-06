@@ -5,6 +5,8 @@ const businessDb = require('../models/BusinessModel.js');
 // const { where } = require('sequelize');
 const Sequelize = require('sequelize');
 const userDb = require('../models/UserModel.js');
+const workerDb = require('../models/WorkerModel.js');
+const serviceDb = require('../models/ServiceModel.js');
 
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -391,15 +393,39 @@ const getBusiness = async (req, res) => {
 //   }
 // };
 
+// const getBusinessByParams = async (req, res) => {
+//   try {
+//     const searchParams = req.params.searchParams;
+//     const typeBusiness = req.body.typeBusiness;
+//     const findAllBusiness = await businessDb.findAll({
+//       where: {
+//         [Sequelize.Op.or]: [
+//           { name: { [Sequelize.Op.like]: `%${searchParams}%` } },
+//           { address: { [Sequelize.Op.like]: `%${searchParams}%` } },
+//         ],
+
+//         typeBusiness: typeBusiness, // Ganti 'type' dengan field yang sesuai pada model Anda
+//       },
+//     });
+
+//     res.status(200).json(findAllBusiness);
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
 const getBusinessByParams = async (req, res) => {
   try {
     const searchParams = req.params.searchParams;
+    const typeBusiness = req.query.typeBusiness; // Mengambil dari query parameter
+
     const findAllBusiness = await businessDb.findAll({
       where: {
         [Sequelize.Op.or]: [
           { name: { [Sequelize.Op.like]: `%${searchParams}%` } },
           { address: { [Sequelize.Op.like]: `%${searchParams}%` } },
         ],
+        typeBusiness: typeBusiness, // Gunakan di bagian where sesuai kebutuhan Anda
       },
     });
 
@@ -408,6 +434,7 @@ const getBusinessByParams = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
 
 const createSubscriptionBusiness = async (req, res) => {
   try {
@@ -453,7 +480,7 @@ const getSubscriptionBusiness = async (req, res) => {
   try {
     const findSubscriptionBusiness = await businessDb.findAll({
       where: { subscription: 'yes' },
-      limit: 2,
+      limit: 5,
       order: Sequelize.literal('RAND()'),
     });
 
@@ -497,6 +524,11 @@ const getBusinessById = async (req, res) => {
   try {
     const findBusiness = await businessDb.findOne({
       where: { uuid: req.params.uuid },
+      include: [
+        { model: userDb, as: 'userData' },
+        { model: workerDb, as: 'workers' },
+        { model: serviceDb, as: 'services' },
+      ],
     });
 
     res.status(200).json(findBusiness);

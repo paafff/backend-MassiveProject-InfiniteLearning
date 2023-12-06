@@ -31,7 +31,7 @@ const serviceDb = dbConfig.define(
 businessDb.hasMany(serviceDb);
 serviceDb.belongsTo(businessDb, {
   foreignKey: 'businessId',
-  as: 'businessData',
+  as: 'services',
 });
 
 module.exports = serviceDb;
