@@ -17,6 +17,7 @@ const workerRouter = require('./routes/WorkerRoute.js');
 const feedbackRouter = require('./routes/FeedbackRoute.js');
 const hairRouter = require('./routes/HairRoute.js');
 const reservationRouter = require('./routes/ReservationRoute.js');
+const listServiceRouter = require('./routes/ListServiceRoute.js');
 const app = express();
 dotenv.config();
 
@@ -63,6 +64,7 @@ app.use(workerRouter);
 app.use(feedbackRouter);
 app.use(hairRouter);
 app.use(reservationRouter);
+app.use(listServiceRouter);
 
 app.listen(process.env.APP_PORT, () => {
   console.log(`server sudah jalan tuan... ${process.env.APP_PORT}`);

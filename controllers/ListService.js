@@ -36,4 +36,19 @@ const deleteListService = async (req, res) => {
   }
 };
 
-module.exports = { deleteListService, createListService, updateListService };
+const getListService = async (req, res) => {
+  try {
+    const findListService = await listServiceDb.findAll();
+
+    res.status(200).json(findListService);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+module.exports = {
+  deleteListService,
+  createListService,
+  updateListService,
+  getListService,
+};

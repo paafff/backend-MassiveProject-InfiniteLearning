@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequilize');
+const { DataTypes } = require('sequelize');
 const dbConfig = require('./../config/Database.js');
 
 // const listServiceDb = dbCon;
 const listServiceDb = dbConfig.define(
-  'listService',
+  'listServices',
   {
     name: { type: DataTypes.STRING, unique: true },
   },

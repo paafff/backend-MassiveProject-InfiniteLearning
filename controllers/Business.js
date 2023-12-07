@@ -444,7 +444,7 @@ const createSubscriptionBusiness = async (req, res) => {
 
     await businessDb.update(
       {
-        subscription: 'Subscribe',
+        subscription: 'yes',
         subscriptionAt: new Date(),
       },
       { where: { uuid: req.params.uuid } }
