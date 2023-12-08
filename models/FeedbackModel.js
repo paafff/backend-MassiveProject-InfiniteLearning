@@ -38,7 +38,7 @@ businessDb.hasMany(feedbackDb);
 feedbackDb.belongsTo(userDb, { foreignKey: 'userId', as: 'userData' });
 feedbackDb.belongsTo(businessDb, {
   foreignKey: 'businessId',
-  as: 'businessData',
+  as: 'feedbacks',
 });
 
 module.exports = feedbackDb;

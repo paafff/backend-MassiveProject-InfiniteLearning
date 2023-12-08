@@ -7,6 +7,7 @@ const Sequelize = require('sequelize');
 const userDb = require('../models/UserModel.js');
 const workerDb = require('../models/WorkerModel.js');
 const serviceDb = require('../models/ServiceModel.js');
+const feedbackDb = require('../models/FeedbackModel.js');
 
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -435,7 +436,6 @@ const getBusinessByParams = async (req, res) => {
   }
 };
 
-
 const createSubscriptionBusiness = async (req, res) => {
   try {
     // const findBusiness = await businessDb.findOne({
@@ -528,6 +528,11 @@ const getBusinessById = async (req, res) => {
         { model: userDb, as: 'userData' },
         { model: workerDb, as: 'workers' },
         { model: serviceDb, as: 'services' },
+        {
+          model: feedbackDb,
+          as: 'feedbacks',
+          include: [{ model: userDb, as: 'userData' }],
+        },
       ],
     });
 
