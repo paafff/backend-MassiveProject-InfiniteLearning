@@ -81,12 +81,11 @@ const getFeedbackByBusinessId = async (req, res) => {
       include: [
         {
           model: businessDb,
-          as: 'feedbackBusiness',
+          as: 'feedbacks',
         },
         {
           model: userDb,
-          as: 'feedbackUser',
-          attributes: ['profileUrl', 'username', 'email'],
+          as: 'userData',
         },
       ],
     });
