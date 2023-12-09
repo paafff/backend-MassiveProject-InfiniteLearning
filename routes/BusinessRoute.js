@@ -37,6 +37,7 @@ const {
   getBusinessByParams,
   createSubscriptionBusiness,
   deleteSubscriptionBusiness,
+  getBusinessByQueryParams,
 } = require('../controllers/Business.js');
 const { verifyAuth, verifyAdminSuperuser } = require('../middleware/Verify.js');
 
@@ -57,6 +58,7 @@ businessRouter.get('/salon', getSalonBusiness);
 businessRouter.get('/subscription', getSubscriptionBusiness);
 businessRouter.get('/my-business', verifyAuth, getBusinessByOwnerId);
 businessRouter.get('/business-search/:searchParams', getBusinessByParams);
+businessRouter.get('/business-search', getBusinessByQueryParams);
 
 businessRouter.patch(
   '/business-subscription/create/:uuid',

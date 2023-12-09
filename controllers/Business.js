@@ -340,6 +340,8 @@ const updateBusiness = async (req, res) => {
       const img5URL = `${process.env.APP_DOMAIN}/business/${img5Name}`;
 
       //set array
+      // console.log('inischeeeeeeee', schedule);
+      // console.log('inisocmed', socialMedia);
 
       const imageName = [img1Name, img2Name, img3Name, img4Name, img5Name];
       const imageURL = [img1URL, img2URL, img3URL, img4URL, img5URL];
@@ -351,6 +353,7 @@ const updateBusiness = async (req, res) => {
         : undefined;
       const scheduleParse = schedule ? JSON.parse(schedule) : undefined;
 
+      console.log('inischedule', scheduleParse);
       const updateData = {
         name: name,
         typeBusiness: typeBusiness,
@@ -427,6 +430,25 @@ const getBusinessByParams = async (req, res) => {
           { address: { [Sequelize.Op.like]: `%${searchParams}%` } },
         ],
         typeBusiness: typeBusiness, // Gunakan di bagian where sesuai kebutuhan Anda
+      },
+    });
+
+    res.status(200).json(findAllBusiness);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const getBusinessByQueryParams = async (req, res) => {
+  try {
+    const search = req.query.search;
+
+    const findAllBusiness = await businessDb.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { name: { [Sequelize.Op.like]: `%${search}%` } },
+          { address: { [Sequelize.Op.like]: `%${search}%` } },
+        ],
       },
     });
 
@@ -590,6 +612,7 @@ module.exports = {
   getSubscriptionBusiness,
   getBusinessByOwnerId,
   getBusinessByParams,
+  getBusinessByQueryParams,
   createBusiness,
   createSubscriptionBusiness,
   deleteSubscriptionBusiness,
