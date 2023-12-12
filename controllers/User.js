@@ -207,10 +207,59 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const updateRoleUser = async (req, res) => {
+  try {
+    const findUser = await userDb.findOne({ where: { uuid: req.params.uuid } });
+
+    if (!findUser) {
+      return res.status(404).json({ msg: 'user tidak ditemukan' });
+    }
+
+    // const role = req.body.role;
+    // parseRole = JSON.stringify(role);
+    // console.log(req.body.role);
+    // console.log(parseRole);
+
+    await findUser.update({ role: req.body.role });
+
+    res.status(200).json({ msg: 'user role sukses diperbarui' });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+// notes nang,perbandingan dengan update diatas, jika dibawah ini akan eror aneh gajelas absurd 'unexpected token 0'
+// const updateRoleUser = async (req, res) => {
+//   try {
+//     const findUser = await userDb.findOne({ where: { uuid: req.params.uuid } });
+
+//     if (!findUser) {
+//       return res.status(404).json({ msg: 'user tidak ditemukan' });
+//     }
+
+//     // const role = req.body.role;
+//     // parseRole = JSON.stringify(role);
+//     // console.log(req.body.role);
+//     // console.log(parseRole);
+
+//     await userDb.update(
+//       { role:req.body.role  },
+//       {
+//         where: { uuid: req.params.uuid },
+//       }
+//     );
+
+//     res.status(200).json({ msg: 'user role sukses diperbarui' });
+//   } catch (error) {
+//     res.status(400).json({ msg: error.message });
+//   }
+// };
+
 module.exports = {
   getUser,
   getUsers,
   updateUser,
   deleteUser,
   updateUserPassword,
+  updateRoleUser,
 };

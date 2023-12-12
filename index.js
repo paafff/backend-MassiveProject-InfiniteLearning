@@ -39,15 +39,18 @@ app.use(
     cookie: {
       secure: 'auto',
       maxAge: 24 * 60 * 60 * 1000,
+      // sameSite: 'None', // Set SameSite attribute to None
+      // secure: true  // Set Secure attribute
     },
     store: Store,
   })
 );
 
+// const originUrls = process.env.ORIGIN_URL.split(',');
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
   })
 );
 

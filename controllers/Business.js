@@ -343,6 +343,10 @@ const updateBusiness = async (req, res) => {
       // console.log('inischeeeeeeee', schedule);
       // console.log('inisocmed', socialMedia);
 
+      // console.log('inischedule', scheduleParse);
+      console.log('iniaddress', address);
+      console.log('iniaddressid', addressId);
+
       const imageName = [img1Name, img2Name, img3Name, img4Name, img5Name];
       const imageURL = [img1URL, img2URL, img3URL, img4URL, img5URL];
 
@@ -353,7 +357,9 @@ const updateBusiness = async (req, res) => {
         : undefined;
       const scheduleParse = schedule ? JSON.parse(schedule) : undefined;
 
-      console.log('inischedule', scheduleParse);
+      // console.log('inischedule', scheduleParse);
+      console.log('iniaddressxxxxxxx', addressParse);
+      console.log('iniaddressidxxxxxxxxx', addressIdParse);
       const updateData = {
         name: name,
         typeBusiness: typeBusiness,
