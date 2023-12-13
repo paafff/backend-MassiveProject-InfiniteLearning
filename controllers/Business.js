@@ -361,11 +361,11 @@ const updateBusiness = async (req, res) => {
       console.log('iniaddressxxxxxxx', addressParse);
       console.log('iniaddressidxxxxxxxxx', addressIdParse);
       const updateData = {
-        name: name,
-        typeBusiness: typeBusiness,
-        phone: phone,
-        email: email,
-        description: description,
+        name: name || undefined,
+        typeBusiness: typeBusiness || undefined,
+        phone: phone || undefined,
+        email: email || undefined,
+        description: description || undefined,
         imageName: imageName,
         imageURL: imageURL,
         address: addressParse,
