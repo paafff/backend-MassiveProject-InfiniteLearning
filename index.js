@@ -46,11 +46,12 @@ app.use(
   })
 );
 
-// const originUrls = process.env.ORIGIN_URL.split(',');
+const originUrls = process.env.ORIGIN_URL.split(',');
 app.use(
   cors({
     credentials: true,
-    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+    origin: originUrls,
+    // origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
   })
 );
 
