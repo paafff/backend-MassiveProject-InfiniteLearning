@@ -105,7 +105,7 @@ const uploadFile = multer({ storage: storageSettings }).fields([
 // };
 
 const createBusiness = async (req, res) => {
-  const { typeBusiness, name, address, addressId } = req.body;
+  const { typeBusiness, name, address, addressId, description } = req.body;
 
   // console.log('business', typeBusiness, name, address);
   try {
@@ -114,6 +114,7 @@ const createBusiness = async (req, res) => {
       typeBusiness: typeBusiness,
       address: address,
       addressId: addressId,
+      description: description,
 
       //note fixxxxxxx middleware ntar
       userId: req.userId,
