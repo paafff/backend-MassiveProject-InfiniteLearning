@@ -3,11 +3,11 @@ const dbConfig = require('../config/Database.js');
 const userDb = require('./UserModel.js');
 
 const defaultImageURL = [
-  'http://localhost:5000/business/unsetImageBusiness.png',
-  'http://localhost:5000/business/unsetImageBusiness.png',
-  'http://localhost:5000/business/unsetImageBusiness.png',
-  'http://localhost:5000/business/unsetImageBusiness.png',
-  'http://localhost:5000/business/unsetImageBusiness.png',
+  `${process.env.APP_DOMAIN}/business/unsetImageBusiness.png`,
+  `${process.env.APP_DOMAIN}/business/unsetImageBusiness.png`,
+  `${process.env.APP_DOMAIN}/business/unsetImageBusiness.png`,
+  `${process.env.APP_DOMAIN}/business/unsetImageBusiness.png`,
+  `${process.env.APP_DOMAIN}/business/unsetImageBusiness.png`,
 ];
 
 const defaultImageName = [
