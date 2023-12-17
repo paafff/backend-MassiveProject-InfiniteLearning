@@ -18,14 +18,8 @@ const defaultImageName = [
   'unsetImageBusiness.png',
 ];
 
-const tempArray = [
-  'undefined',
-  'undefined',
-  'undefined',
-  'undefined',
-  'undefined',
-];
-const tempArraySchedule = ['undefined', 'undefined'];
+const tempArray = ['', '', '', '', ''];
+const tempArraySchedule = ['', ''];
 
 const businessDb = dbConfig.define(
   'business',
