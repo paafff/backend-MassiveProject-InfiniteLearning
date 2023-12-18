@@ -2,6 +2,7 @@ const fs = require('fs');
 const multer = require('multer');
 const userDb = require('../models/UserModel.js');
 const argon2 = require('argon2');
+const { v4: uuidv4 } = require('uuid');
 
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -9,10 +10,9 @@ const storageSettings = multer.diskStorage({
     cb(null, 'assets/profiles');
   },
   filename: (req, file, cb) => {
-    // Menentukan nama file dengan menambahkan timestamp ke nama asli
-    const timestamp = Date.now();
-    const newFilename = `${timestamp}.png`; // Ubah ekstensi menjadi .png jika diperlukan
-    cb(null, newFilename);
+    // Membuat nama file dengan UUID + timestamp
+    const uniqueFilename = `${uuidv4()}-${Date.now()}.png`; // Ubah ekstensi menjadi .png jika diperlukan
+    cb(null, uniqueFilename);
   },
 });
 

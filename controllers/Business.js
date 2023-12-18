@@ -9,16 +9,17 @@ const workerDb = require('../models/WorkerModel.js');
 const serviceDb = require('../models/ServiceModel.js');
 const feedbackDb = require('../models/FeedbackModel.js');
 
+const { v4: uuidv4 } = require('uuid');
+
 const storageSettings = multer.diskStorage({
   destination: (req, file, cb) => {
     // Menentukan folder penyimpanan
     cb(null, 'assets/business');
   },
   filename: (req, file, cb) => {
-    // Menentukan nama file dengan menambahkan timestamp ke nama asli
-    const timestamp = Date.now();
-    const newFilename = `${timestamp}.png`; // Ubah ekstensi menjadi .png jika diperlukan
-    cb(null, newFilename);
+    // Membuat nama file dengan UUID + timestamp
+    const uniqueFilename = `${uuidv4()}-${Date.now()}.png`; // Ubah ekstensi menjadi .png jika diperlukan
+    cb(null, uniqueFilename);
   },
 });
 
@@ -438,6 +439,7 @@ const getBusinessByParams = async (req, res) => {
         ],
         typeBusiness: typeBusiness, // Gunakan di bagian where sesuai kebutuhan Anda
       },
+      order: Sequelize.literal('RAND()'),
     });
 
     res.status(200).json(findAllBusiness);
@@ -457,6 +459,7 @@ const getBusinessByQueryParams = async (req, res) => {
           { address: { [Sequelize.Op.like]: `%${search}%` } },
         ],
       },
+      order: Sequelize.literal('RAND()'),
     });
 
     res.status(200).json(findAllBusiness);
