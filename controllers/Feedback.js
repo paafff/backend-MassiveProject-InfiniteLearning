@@ -88,6 +88,7 @@ const getFeedbackByBusinessId = async (req, res) => {
           as: 'userData',
         },
       ],
+      order: [['createdAt', 'DESC']], // Urutkan berdasarkan tanggal pembuatan secara descending
     });
     res.status(200).json(findFeedback);
   } catch (error) {

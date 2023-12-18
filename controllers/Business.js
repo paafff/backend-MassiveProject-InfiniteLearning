@@ -564,6 +564,8 @@ const getBusinessById = async (req, res) => {
           model: feedbackDb,
           as: 'feedbacks',
           include: [{ model: userDb, as: 'userData' }],
+          order: [['createdAt', 'DESC']], // Urutkan berdasarkan tanggal pembuatan secara descending
+          separate: true, // Mengambil feedbacks sebagai hasil terpisah
         },
       ],
     });

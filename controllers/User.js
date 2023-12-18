@@ -171,7 +171,7 @@ const updateUserPassword = async (req, res) => {
   }
 
   try {
-    await userDb.update(
+    await findUser.update(
       {
         password: hashPassword,
       },
