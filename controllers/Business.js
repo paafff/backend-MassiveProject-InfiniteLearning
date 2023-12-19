@@ -526,6 +526,7 @@ const getBarbeshopBusiness = async (req, res) => {
   try {
     const findBarbershopBusiness = await businessDb.findAll({
       where: { typeBusiness: 'Barbershop' },
+      order: Sequelize.literal('RAND()'),
     });
 
     if (!findBarbershopBusiness) {
@@ -544,6 +545,7 @@ const getSalonBusiness = async (req, res) => {
   try {
     const findSalonBusiness = await businessDb.findAll({
       where: { typeBusiness: 'Salon' },
+      order: Sequelize.literal('RAND()'),
     });
 
     res.status(200).json(findSalonBusiness);
